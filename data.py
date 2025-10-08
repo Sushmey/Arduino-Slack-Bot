@@ -2,8 +2,11 @@ from flask import Flask, render_template
 from flask import request
 import serial
 import time
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-arduino_port = 'port/to/read/arduino' # Example for Linux/macOS
+arduino_port = os.getenv('PORT') # Example for Linux/macOS
 baud_rate = 9600
 
 def getData(kind="both"):
@@ -23,7 +26,7 @@ def getData(kind="both"):
 	        else: continue
 	        break
 	    if(val=="temp"):
-	    	index = data.
+	    	pass
 	    return data
 
 
@@ -37,5 +40,3 @@ def getData(kind="both"):
 	        print("Serial port closed.")
 	        if(data): return data
 
-
-def get_temp():

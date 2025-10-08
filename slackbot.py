@@ -1,11 +1,14 @@
 from slack_bolt import App
 from data import getData
+from dotenv import load_dotenv
 import threading
+import os
 
+load_dotenv()
 # Initialize your app with bot token and signing secret
 slack_bot = App(
-    token="",
-    signing_secret=""
+    token=os.getenv('SLACK_TOKEN'),
+    signing_secret=os.getenv('SLACK_SIGNING_SECRET')
 )
 
 # Example: Respond when someone says "hello"
@@ -21,7 +24,10 @@ def get_data(ack, respond):
     # user = message['user']
     def fetch_and_respond():
         data = getData()
-        respond(f"👋 Hello there, here is the data {data}!")
+        if(data!=None):
+            respond(f"👋 Hello there, here is the data {data}!")
+        else:
+            respond(f"Sorry there's been an error! :( ")
     threading.Thread(target=fetch_and_respond).start()
 
 
